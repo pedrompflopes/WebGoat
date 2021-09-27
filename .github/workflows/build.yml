@@ -13,9 +13,19 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+        
+      - name: Checkmarx AST CLI Action
+        uses: checkmarxDev/ast-github-action@master #Github Action version
+        with:
+          project_name: ast-webgoat
+          base_uri: https://ast-master.dev.cxast.net/
+          cx_tenant: galactica
+          cx_client_id: ${{ secrets.CX_CLIENT_ID }}
+          cx_client_secret: ${{ secrets.CX_CLIENT_SECRET }}
+          additional_params: --report-format sarif --output-name results
 
       - name: Upload SARIF file
         uses: github/codeql-action/upload-sarif@v1
         with:
           # Path to SARIF file relative to the root of the repository
-          sarif_file: test.sarif
+          sarif_file: results.sarif
