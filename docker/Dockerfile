@@ -7,7 +7,7 @@ RUN apt-get update
 RUN useradd -ms /bin/bash webgoat
 RUN apt-get -y install apt-utils nginx
 
-USER webgoat
+RUN apt-get update
 
 COPY --chown=webgoat nginx.conf /etc/nginx/nginx.conf
 COPY --chown=webgoat index.html /usr/share/nginx/html/
